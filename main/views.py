@@ -6,14 +6,15 @@ from django.contrib import messages
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import RegisterForm
+
+from .forms import RegisterForm,UserLoginForm
 
 from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem, Order_details
 
 class HomePage(View):
     def get(self,request):
-        context = {}
+        categories = Category.objects.all()
+        context = {'categories':categories}
         return render(request,'main/home_page.html',context)
 
 class RegisterPage(View):
@@ -34,7 +35,6 @@ class RegisterPage(View):
                 firstname = user.first_name,
                 lastname = user.last_name,
                 email = user.email,
-                phone_number = self.request.POST['phone_number']
             )
             return redirect(succes_url)
         else:
@@ -42,12 +42,12 @@ class RegisterPage(View):
 
 class LoginPage(View):
     def get(self,request):
-        form = AuthenticationForm()
+        form = UserLoginForm()
         context = {'login_form':form}
         return render(request,'main/login_page.html',context)
     
     def post(self,request):
-        form = AuthenticationForm(request,data=request.POST)
+        form = UserLoginForm(request,data=request.POST)
         return  self.form_validation(form,'home_page')
     
     def form_validation(self,form,succes_url):
