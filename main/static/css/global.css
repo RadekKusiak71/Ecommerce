@@ -7,9 +7,12 @@
 }
 body{
     font-family: 'Montserrat', sans-serif;
-    height: 100VH;
+    height: fit-content;
 }
-
+.container{
+    min-height: 100vh;
+    height: fit-content;
+}
 .base_logo_photo{
     width: 20%;
     height: 20%;
