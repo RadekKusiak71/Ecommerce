@@ -3,6 +3,29 @@ from django import forms
 from django.forms import ModelForm,TextInput, EmailInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+
+class UserLoginForm(AuthenticationForm):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({
+            'required':'',
+            'name':'username',
+            'id':'username',
+            'type':'text',
+            'class':'form-control',
+            'placeholder':'Username'
+        })
+        self.fields['password'].widget.attrs.update({
+            'required':'',
+            'name':'password',
+            'id':'password',
+            'type':'password',
+            'class':'form-control',
+            'placeholder':'Password'
+        })
+
+
 
 
 class RegisterForm(UserCreationForm):
@@ -67,7 +90,7 @@ class RegisterForm(UserCreationForm):
     def save(self,commit=True):
         user = super(RegisterForm,self).save(commit=False)
         user.email = self.cleaned_data['email']
-        user.firs_tname = self.cleaned_data['firs_tname']
+        user.firs_tname = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         if commit:
             user.save()
