@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Login Page {% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Username</label>
+        {{login_form.username}}
+    </div>
+    <div class="form-group">
+        <label for="name">Firstname</i></label>
+        {{login_form.password}}
+    </div>
+    <button type='submit' class="btn btn-secondary">SIGN IN</button>
+</form>
+
+{% endblock %}
