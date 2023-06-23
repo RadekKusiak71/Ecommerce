@@ -1,7 +1,35 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block title %} Home Page {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/home_page.css' %}"> {% endblock %}
 
 {% block content %}
-    <h1>Home Page</h1>
+<div class="row">
+    <div class="col-12 home_title">
+        <h3>CATEGORIES</h3>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="col-3 home_categories">
+                {% for category in categories %}
+                <a href="">
+                    <div class="col-12 category_home">
+                        {{ category.name }}
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            
+            <div class="col-9 home_image_cont">
+                <img src="{% static '/images/home_page_img.jpg' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+
+        </div>
+    </div>
 {% endblock %}

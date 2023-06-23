@@ -8,30 +8,27 @@
 <div class="register_container">
     <div class="register_form_container">
         <div class="left_form_container">
-            <img src="{% static 'images/shop_image.jpg' %}" alt="" id='shop_image_register'>
+            <img src="{% static 'images/shop_image.jpg' %}" alt="" id="shop_image_register">
         </div>
         <div class="right_form_container">
             <h1 style="margin-top: 3rem;">Registration</h1>
             <form method="POST">
                 {% csrf_token %}
-                {{register_form.username}}
-                {{register_form.first_name}}
-                {{register_form.last_name}}
-                {{register_form.email}}
-                {{register_form.password1}}
-                {{register_form.password2}}
+                {{ register_form.username }}
+                {{ register_form.first_name }}
+                {{ register_form.last_name }}
+                {{ register_form.email }}
+                {{ register_form.password1 }}
+                {{ register_form.password2 }}
                 <div class="row">
                     <div class="col">
                         <button class="btn btn-dark" style="width: 96%;">Register</button>
                     </div>
                 </div>
                 <div class="row align-items-end" style="height: 100%;">
-
                     <div class="col-12 d-flex justify-content-start" style="margin-top: 1rem;">
-                        <a href="{% url 'login_page' %}" class="btn btn-dark" style="width: 96%;">You already have account ?</a>
+                        <a href="{% url 'login_page' %}" class="btn btn-dark" style="width: 96%;">You already have an account?</a>
                     </div>
-
-                </div>
                 </div>
             </form>
         </div>
