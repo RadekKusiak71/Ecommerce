@@ -8,7 +8,7 @@ class Profile(models.Model):
     firstname = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     email = models.EmailField()
-    phone_number = models.CharField(max_length=9)
+    phone_number = models.CharField(max_length=9,null=True)
 
     def __str__(self):
         return f'{self.firstname} {self.lastname}'
@@ -23,8 +23,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     product_number = models.CharField(max_length=7)
-    price = models.IntegerField()
+    price = models.FloatField()
     quantity = models.IntegerField()
+    image = models.ImageField(upload_to='product_images/',null=True)
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
