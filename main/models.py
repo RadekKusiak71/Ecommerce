@@ -21,11 +21,12 @@ class Category(models.Model):
     
 class Product(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    description = models.TextField(null=True)
     name = models.CharField(max_length=100)
     product_number = models.CharField(max_length=7)
     price = models.FloatField()
     quantity = models.IntegerField()
-    image = models.ImageField(upload_to='product_images/',null=True)
+    image = models.ImageField(upload_to='main/static/product_images',null=True)
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
