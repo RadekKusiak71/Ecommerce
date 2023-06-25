@@ -36,6 +36,16 @@ class HomePage(View):
                    }
         return render(request,'main/home_page.html',context)
 
+class ItemPage(View):
+    def get(self,request,item_id):
+        item = Product.objects.get(id=item_id)
+        items = Product.objects.filter(category=item.category)
+        context = {'item':item,'items':items}
+        return render(request,'main/item_page.html',context)
+
+
+
+
 class RegisterPage(View):
     def get(self,request):
         form = RegisterForm()
