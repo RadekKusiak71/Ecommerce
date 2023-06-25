@@ -35,7 +35,7 @@
             {% for phone in phones %}
                 <div class="phone_display">
                     <img src="{{phone.image}}" alt="product_images">
-                    <a class="btn btn-dark">{{phone.name}} - {{phone.price}}$</a>
+                    <a href="{% url 'item_page' phone.id %}" class="btn btn-dark">{{phone.name}} - {{phone.price}}$</a>
                 </div>
             {% endfor %}
         </div>
@@ -62,7 +62,7 @@
             {% for monitor in monitors %}
                 <div class="phone_display">
                     <img src="{{monitor.image}}" alt="product_images">
-                    <a class="btn btn-dark">{{monitor.name}} - {{monitor.price}}$</a>
+                    <a href="{% url 'item_page' monitor.id %}" class="btn btn-dark">{{monitor.name}} - {{monitor.price}}$</a>
                 </div>
             {% endfor %}
         </div>
@@ -89,7 +89,7 @@
             {% for keyboard in keyboards %}
                 <div class="phone_display">
                     <img src="{{keyboard.image}}" alt="product_images">
-                    <a class="btn btn-dark">{{keyboard.name}} - {{keyboard.price}}$</a>
+                    <a href="{% url 'item_page' keyboard.id %}" class="btn btn-dark">{{keyboard.name}} - {{keyboard.price}}$</a>
                 </div>
             {% endfor %}
         </div>
@@ -116,7 +116,7 @@
             {% for laptop in laptops %}
                 <div class="phone_display">
                     <img src="{{laptop.image}}" alt="product_images">
-                    <a class="btn btn-dark">{{laptop.name}} - {{laptop.price}}$</a>
+                    <a href="{% url 'item_page' laptop.id %}" class="btn btn-dark">{{laptop.name}} - {{laptop.price}}$</a>
                 </div>
             {% endfor %}
         </div>
@@ -143,7 +143,7 @@
             {% for mouse in mouses %}
                 <div class="phone_display">
                     <img src="{{mouse.image}}" alt="product_images">
-                    <a class="btn btn-dark">{{mouse.name}} - {{mouse.price}}$</a>
+                    <a href="{% url 'item_page' mouse.id %}" class="btn btn-dark">{{mouse.name}} - {{mouse.price}}$</a>
                 </div>
             {% endfor %}
         </div>
@@ -170,7 +170,7 @@
             {% for computer in computers %}
                 <div class="phone_display">
                     <img src="{{computer.image}}" alt="product_images">
-                    <a class="btn btn-dark">{{computer.name}} - {{computer.price}}$</a>
+                    <a href="{% url 'item_page' computer.id %}" class="btn btn-dark">{{computer.name}} - {{computer.price}}$</a>
                 </div>
             {% endfor %}
         </div>
