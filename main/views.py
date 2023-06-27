@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
-
+from django.contrib.sessions.models import Session
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -42,9 +42,39 @@ class ItemPage(View):
         items = Product.objects.filter(category=item.category)
         context = {'item':item,'items':items}
         return render(request,'main/item_page.html',context)
+    
+    def post(self,request,item_id):
+        cart = self.get_cart()
+        product = Product.objects.get(id=item_id)
+        item, created = CartItem.objects.get_or_create(product=product, cart=cart)
+        if not created:
+            item.quantity += 1
+            item.save()
 
+        return redirect('home_page')
 
+    def get_cart(self):
+        if self.request.user.is_authenticated:
+            cart, created = Cart.objects.get_or_create(owner=self.request.user.profile)
+        else:
+            session_key = self.get_session()
+            cart, created = Cart.objects.get_or_create(owner=None, session_key=session_key)
+        return cart
 
+    
+    def get_session(self):
+        session_key = self.request.session.session_key
+        if not session_key:
+            self.request.session.save()
+            session_key = self.request.session.session_key
+        return session_key
+
+class CartPage(ItemPage,View):
+    def get(self,request):
+        cart = self.get_cart()
+        cart_items = CartItem.objects.filter(cart=cart)
+        context = {'cart_items':cart_items}
+        return render(request,'main/cart.html',context)
 
 class RegisterPage(View):
     def get(self,request):

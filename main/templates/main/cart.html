@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="status_cart">
+    <div class="status">Your Cart</div>
+    <div class="status">Your Data</div>
+    <div class="status">Order Details</div>
+    <div class="status">Confirm Order</div>
+</div>
+<hr>
+<div class="cart_container">
+    {% for item in cart_items %}
+    <div class="cart_item">
+        <div class="cart_image">
+        <img src="{{ item.product.image.url }}" alt="Product Image">
+        </div>
+        <div class="cart_product_data">
+        <h3>{{ item.product.name }}</h3>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Price: {{ item.product.price }}</p>
+        </div>
+        <div class="cart_item_delete">
+        <form action="" method="post">
+            <button type="submit">
+                <i class="bi bi-x"></i>
+            </button>
+        </form>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock %}
