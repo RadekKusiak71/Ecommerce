@@ -3,33 +3,219 @@
 
 {% block title %} Home Page {% endblock %}
 {% block css %} <link rel="stylesheet" href="{% static 'css/home_page.css' %}"> {% endblock %}
-
 {% block content %}
-<div class="row">
-    <div class="col-12 home_title">
+<div class="home_upper_container">
+    <div class="home_title">
         <h3>CATEGORIES</h3>
     </div>
-</div>
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <div class="col-3 home_categories">
+
+    <div class="home_upper_low_section">
+        <div class="main_box">
+            <div class="home_categories">
                 {% for category in categories %}
-                <a href="">
-                    <div class="col-12 category_home">
-                        {{ category.name }}
-                    </div>
-                </a>
+                    <a href="">
+                        <p>{{ category.name }}</p>
+                    </a>
                 {% endfor %}
             </div>
-            
-            <div class="col-9 home_image_cont">
-                <img src="{% static '/images/home_page_img.jpg' %}" alt="">
+        </div>
+        <div class="home_image">
+            <img src="{% static 'images/home_page_img.jpg' %}" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="home_upper_container">
+    <div class="home_title">
+        <h3>PHONES</h3>
+    </div>
+
+    <div class="home_lower_section">
+        <div class="phones_category">
+            {% for phone in phones %}
+                <div class="phone_display">
+                    <img src="{{phone.image}}" alt="product_images">
+                    <a href="{% url 'item_page' phone.id %}" class="btn btn-dark">{{phone.name}} - {{phone.price}}$</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="left_right">
+                <button class="btn btn-dark scroll1" onclick="scrollLeft()">
+                    <i class="bi bi-arrow-left" style="font-size: 30px;"></i>
+                </button>
+                <button class="btn btn-dark scroll2" onclick="scrollRight()">
+                    <i class="bi bi-arrow-right" style="font-size: 30px;"></i>
+                </button>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
+</div>
 
+<div class="home_upper_container">
+    <div class="home_title">
+        <h3>MONITORS</h3>
+    </div>
+
+    <div class="home_lower_section">
+        <div class="phones_category">
+            {% for monitor in monitors %}
+                <div class="phone_display">
+                    <img src="{{monitor.image}}" alt="product_images">
+                    <a href="{% url 'item_page' monitor.id %}" class="btn btn-dark">{{monitor.name}} - {{monitor.price}}$</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="left_right">
+                <button class="btn btn-dark scroll1" onclick="scrollLeft()">
+                    <i class="bi bi-arrow-left" style="font-size: 30px;"></i>
+                </button>
+                <button class="btn btn-dark scroll2" onclick="scrollRight()">
+                    <i class="bi bi-arrow-right" style="font-size: 30px;"></i>
+                </button>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="home_upper_container">
+    <div class="home_title">
+        <h3>KEYBOARDS</h3>
+    </div>
+
+    <div class="home_lower_section">
+        <div class="phones_category">
+            {% for keyboard in keyboards %}
+                <div class="phone_display">
+                    <img src="{{keyboard.image}}" alt="product_images">
+                    <a href="{% url 'item_page' keyboard.id %}" class="btn btn-dark">{{keyboard.name}} - {{keyboard.price}}$</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="left_right">
+                <button class="btn btn-dark scroll1" onclick="scrollLeft()">
+                    <i class="bi bi-arrow-left" style="font-size: 30px;"></i>
+                </button>
+                <button class="btn btn-dark scroll2" onclick="scrollRight()">
+                    <i class="bi bi-arrow-right" style="font-size: 30px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="home_upper_container">
+    <div class="home_title">
+        <h3>LAPTOPS</h3>
+    </div>
+
+    <div class="home_lower_section">
+        <div class="phones_category">
+            {% for laptop in laptops %}
+                <div class="phone_display">
+                    <img src="{{laptop.image}}" alt="product_images">
+                    <a href="{% url 'item_page' laptop.id %}" class="btn btn-dark">{{laptop.name}} - {{laptop.price}}$</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="left_right">
+                <button class="btn btn-dark scroll1" onclick="scrollLeft()">
+                    <i class="bi bi-arrow-left" style="font-size: 30px;"></i>
+                </button>
+                <button class="btn btn-dark scroll2" onclick="scrollRight()">
+                    <i class="bi bi-arrow-right" style="font-size: 30px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="home_upper_container">
+    <div class="home_title">
+        <h3>MOUSES</h3>
+    </div>
+
+    <div class="home_lower_section">
+        <div class="phones_category">
+            {% for mouse in mouses %}
+                <div class="phone_display">
+                    <img src="{{mouse.image}}" alt="product_images">
+                    <a href="{% url 'item_page' mouse.id %}" class="btn btn-dark">{{mouse.name}} - {{mouse.price}}$</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="left_right">
+                <button class="btn btn-dark scroll1" onclick="scrollLeft()">
+                    <i class="bi bi-arrow-left" style="font-size: 30px;"></i>
+                </button>
+                <button class="btn btn-dark scroll2" onclick="scrollRight()">
+                    <i class="bi bi-arrow-right" style="font-size: 30px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="home_upper_container">
+    <div class="home_title">
+        <h3>COMPUTERS</h3>
+    </div>
+
+    <div class="home_lower_section">
+        <div class="phones_category">
+            {% for computer in computers %}
+                <div class="phone_display">
+                    <img src="{{computer.image}}" alt="product_images">
+                    <a href="{% url 'item_page' computer.id %}" class="btn btn-dark">{{computer.name}} - {{computer.price}}$</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="left_right">
+                <button class="btn btn-dark scroll1" onclick="scrollLeft()">
+                    <i class="bi bi-arrow-left" style="font-size: 30px;"></i>
+                </button>
+                <button class="btn btn-dark scroll2" onclick="scrollRight()">
+                    <i class="bi bi-arrow-right" style="font-size: 30px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
+<script>
+    const scrollContainers = document.querySelectorAll('.phones_category');
+    const scrollAmount = 700;
+    const scrollLeftButtons = document.querySelectorAll('.scroll1');
+    const scrollRightButtons = document.querySelectorAll('.scroll2');
+  
+    scrollLeftButtons.forEach((button) => {
+      button.addEventListener('click', scrollLeft);
+    });
+  
+    scrollRightButtons.forEach((button) => {
+      button.addEventListener('click', scrollRight);
+    });
+  
+    function scrollLeft() {
+      const container = this.parentNode.parentNode.previousElementSibling;
+      container.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  
+    function scrollRight() {
+      const container = this.parentNode.parentNode.previousElementSibling;
+      container.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  </script>
+  
+
 {% endblock %}

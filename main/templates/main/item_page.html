@@ -1,0 +1,85 @@
+{% extends 'main/base.html' %}
+{%load static%}
+{% block title %}Item {{item.name}}{% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/item_page.css' %}"> {% endblock %}
+
+{% block content %}
+<div class="item_container">
+    <div class="item_title">
+        <h1>{{item.name}} {{item.product_number}}</h1>
+    </div>
+
+    <div class="item_data">
+        <div class="item_data_cont">
+            <div class="item_photo">
+                <img src="{{item.image.url}}" alt="">
+            </div>
+            <div class="item_description">
+                <h1 style="font-size: 60px;">{{item.name}}</h1>
+                <hr>
+                <p>Product number: {{item.product_number}}</p>
+                <p>Category {{item.category}}</p>
+                <p>Item Details:</p>
+                <p>{{item.description}}</p>
+                <p>Price {{item.price}}$</p>
+                <a href="" type="button" class="btn btn-secondary">Add to cart</a>
+            </div>
+        </div>
+        <hr style="color: white;">
+        <h2 style="margin-top: 0.5rem;color: white;padding: 5px;">Similar Products</h2>
+        <div class="category_items_display">
+            {% for cat_item in items %}
+            {% if cat_item.is_available %}
+                {% if cat_item != item %}
+                <div class="phone_display">
+                    <img src="{{cat_item.image.url}}" alt="product_images">
+                    <a href="{% url 'item_page' cat_item.id %}" class="btn btn-dark">{{cat_item.name}} - {{cat_item.price}}$</a>
+                </div>
+                {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="left_right">
+                <button class="btn btn-dark scroll1" onclick="scrollLeft()">
+                    <i class="bi bi-arrow-left" style="font-size: 30px;"></i>
+                </button>
+                <button class="btn btn-dark scroll2" onclick="scrollRight()">
+                    <i class="bi bi-arrow-right" style="font-size: 30px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <script>
+    const scrollContainers = document.querySelectorAll('.category_items_display');
+    const scrollAmount = 700;
+    const scrollLeftButtons = document.querySelectorAll('.scroll1');
+    const scrollRightButtons = document.querySelectorAll('.scroll2');
+  
+    scrollLeftButtons.forEach((button) => {
+      button.addEventListener('click', scrollLeft);
+    });
+  
+    scrollRightButtons.forEach((button) => {
+      button.addEventListener('click', scrollRight);
+    });
+  
+    function scrollLeft() {
+      const container = this.parentNode.parentNode.previousElementSibling;
+      container.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  
+    function scrollRight() {
+      const container = this.parentNode.parentNode.previousElementSibling;
+      container.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  </script>
+{% endblock %}

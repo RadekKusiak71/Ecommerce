@@ -13,9 +13,38 @@ from .models import Profile, Category, Product, Cart , CartItem, Order, OrderIte
 
 class HomePage(View):
     def get(self,request):
+        category = Category.objects.get(name='Phone')
+        category1 = Category.objects.get(name='Computer')
+        category2 = Category.objects.get(name='Mouse')
+        category3 = Category.objects.get(name='Keyboard')
+        category4 = Category.objects.get(name='Monitor')
+        category5 = Category.objects.get(name='Laptop')
+        phones = Product.objects.filter(category=category)
+        computer = Product.objects.filter(category=category1)
+        mouse = Product.objects.filter(category=category2)
+        keyboard = Product.objects.filter(category=category3)
+        monitor = Product.objects.filter(category=category4)
+        laptop = Product.objects.filter(category=category5)
         categories = Category.objects.all()
-        context = {'categories':categories}
+        context = {'categories':categories,
+                   'phones':phones,
+                   'computers':computer,
+                   'mouses':mouse,
+                   'keyboards':keyboard,
+                   'monitors':monitor,
+                   'laptops':laptop,
+                   }
         return render(request,'main/home_page.html',context)
+
+class ItemPage(View):
+    def get(self,request,item_id):
+        item = Product.objects.get(id=item_id)
+        items = Product.objects.filter(category=item.category)
+        context = {'item':item,'items':items}
+        return render(request,'main/item_page.html',context)
+
+
+
 
 class RegisterPage(View):
     def get(self,request):

@@ -1,80 +1,79 @@
-.home_upper_container{
+.cont{
+    height: 100vh;
+}
+.item_container{
     width: 100%;
+    min-height:60%;
+    height: fit-content;
+    background-color: blueviolet;
     margin-top: 0.5rem;
 }
-.home_title{
-    width: 100%;
-    height: 5rem;
-    background-color: #212529;
-    display: flex;
-    align-items: center;
+.item_title{
     color: white;
-    padding: 10px;
+    background-color: #212529;
+    padding: 5px;
 }
-
-.home_upper_low_section{
+.item_data{
     width: 100%;
     height: 100%;
+    background-color: #292b2c;
+}
+
+.item_data_cont{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    height: 70%;
 }
-.main_box{
-    width: 30%;
-    height:55rem;
-}
-.home_categories{
-    width: 100%;
+.item_photo{
+    width: 50%;
     height: 100%;
-    background-color: #292b2c;
 }
-.home_categories a{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    text-decoration: none;
+.item_photo_img{
+    width: 100%;
+    width: 100%;
+}
+.item_photo img{
+    width: 100%;
+    height: 90%;
+}
+.item_description{
+    width: 50%;
+    height: 100%;
+    padding: 5px;
     color: white;
-    height: 16%;
-    width: 100%;
-    transition: 0.3s ease-in-out;
-    padding: 5px;
-    font-size: 18px;
-}
-.home_categories a:hover{
-    background-color: white;
-    height: 20%;
-    color: black;
-    
 }
 
-.home_image{
+.item_description p {
+    font-size: 30px;
+}
+.item_description a{
+    height: 10%;
     width: 80%;
-    height: 55rem;
-}
-.home_image img{
-    width: 100%;
-    height: 100%;
-}
-
-.home_lower_section{
-    width: 100%;
-    height: 30%;
-}
-
-.phones_category{
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
-    overflow: hidden;
-    padding: 5px;
-    background-color: #292b2c;
+    justify-content: center;
+    align-items: center;
+    background-color: #212529;
+    transition: 0.5s ease-in-out;
 }
+.item_description a:hover{
+    width: 100%;
+}
+.category_items_display{
+    height: 20rem;
+    width: 100%;
+    background-color: #292b2c;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
 .phone_display{
     height: 100%;
     width: 20%;
     margin: 0 4rem 0 1rem;
     flex-shrink: 0;
     padding: 10px;
+    flex-shrink: 0;
 }
 
 .phone_display img{

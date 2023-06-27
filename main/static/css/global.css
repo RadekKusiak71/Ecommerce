@@ -5,6 +5,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+    background-color: #494c4e;
+}
 body{
     font-family: 'Montserrat', sans-serif;
     height: fit-content;
@@ -12,7 +15,13 @@ body{
 .container{
     min-height: 100vh;
     height: fit-content;
+}   
+
+.cont{
+    width: 70%;
+    margin: auto;
 }
+
 .base_logo_photo{
     width: 20%;
     height: 20%;
