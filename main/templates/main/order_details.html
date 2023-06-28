@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/order_details.css' %}"> {% endblock %}
+{% block content %}
+<div class="status_cart">
+    <div class="status">Your Cart</div>
+    <div class="status" style="font-weight: bold;">Order Details</div>
+    <div class="status">Confirm Order</div>
+</div>
+<hr>
+<div class="form_container">
+    <div class="left_form">
+        <div class="form_title">
+            <h2>Input your personal data</h2>
+        </div>
+        <hr>
+        <form action="">
+            {% csrf_token %}
+            {{order_form}}
+            <button></button>
+        </form>
+    </div>
+    <div class="right_form">
+        <h2>1</h2>
+    </div>
+</div>
+{% endblock %}

@@ -7,9 +7,9 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from .forms import RegisterForm,UserLoginForm
+from .forms import RegisterForm,UserLoginForm,OrderDetailsForm
 
-from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem, Order_details
+from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem
 
 class HomePage(View):
     def get(self,request):
@@ -50,16 +50,19 @@ class ItemPage(View):
         if not created:
             item.quantity += 1
             item.save()
-        return redirect('home_page')
+
+        return redirect('cart_page')
 
     def get_cart(self):
         if self.request.user.is_authenticated:
-            cart, created = Cart.objects.get_or_create(owner=self.request.user.profile)
+            profile = Profile.objects.get(user=self.request.user)
+            cart, created = Cart.objects.get_or_create(owner=profile)
         else:
             session_key = self.get_session()
             cart, created = Cart.objects.get_or_create(owner=None, session_key=session_key)
         return cart
 
+    
     def get_session(self):
         session_key = self.request.session.session_key
         if not session_key:
@@ -71,9 +74,64 @@ class CartPage(ItemPage,View):
     def get(self,request):
         cart = self.get_cart()
         cart_items = CartItem.objects.filter(cart=cart)
-        context = {'cart_items':cart_items}
+        total_price = self.total_price(cart_items)
+        context = {'cart_items':cart_items,'total_price':total_price}
         return render(request,'main/cart.html',context)
+    
+    def post(self, request):
+        if 'order' in request.POST:
+            cart = self.get_cart()
+            cart_items = CartItem.objects.filter(cart=cart)
+            return self.create_order(cart, cart_items)
+        elif 'item_id' in request.POST:
+            item_id = request.POST.get('item_id')
+            self.check_quantity(item_id)
+        return redirect('cart_page')
 
+    def check_quantity(self, item_id):
+        try:
+            item = CartItem.objects.get(id=item_id)
+            if item.quantity > 1:
+                item.quantity -= 1
+                item.save()
+            else:
+                item.delete()
+        except CartItem.DoesNotExist:
+            return HttpResponse('Item already does not exist')
+        
+    def create_order(self,cart,cart_items):
+        if len(cart_items) != 0:
+            if cart.owner:
+                order = Order.objects.create(owner=cart.owner)
+                self.create_order_items(cart_items,order)   
+            else:
+                order = Order.objects.create(session_key=cart.session_key)
+                self.create_order_items(cart_items,order)
+            cart.delete()
+            return redirect('home_page')
+        else:
+            return HttpResponse('Your cart is empty')
+
+    def create_order_items(self,cart_items,order):
+        for item in cart_items:
+            OrderItem.objects.create(product=item.product,order=order,quantity=item.quantity)
+            item.delete()
+
+    def total_price(self,cart_items):
+        t_price = 0
+        for item in cart_items:
+            if item.quantity > 1:
+                t_price += item.product.price*item.quantity
+            else:
+                t_price += item.product.price
+        return t_price
+    
+class OrderDetailPage(View):
+    def get(self,request):
+        form = OrderDetailsForm
+        context = {'order_form':form}
+        return render(request,'main/order_details.html',context)
+    
 class RegisterPage(View):
     def get(self,request):
         form = RegisterForm()

@@ -33,7 +33,8 @@ hr {
   }
   
 .cart_container {
-    width: 100%;
+    min-width: 100%;
+    width: fit-content;
     min-height: 20rem;
     height: fit-content;
     background-color: #212529;
@@ -83,4 +84,16 @@ hr {
     font-size: 2rem;
     display: flex;
     justify-content: center;
-  }
+}
+
+.cart_end_data{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  flex-wrap: wrap;
+}
+.cart_end_data button{
+  width: 10rem;
+}
