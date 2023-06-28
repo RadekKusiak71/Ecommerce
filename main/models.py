@@ -62,12 +62,11 @@ class CartItem(models.Model):
 class Order(models.Model):
     owner = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
     session_key = models.CharField(max_length=255,null=True)
-
     def __str__(self):
         if self.owner:
-            return f'Cart for {self.owner.firstname} {self.owner.lastname}'
+            return f'Order for {self.owner.firstname} {self.owner.lastname}'
         else:
-            return f'Cart for {self.session_key}'
+            return f'Order for {self.session_key}'
         
 class OrderItem(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
