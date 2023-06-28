@@ -80,7 +80,7 @@ class OrderItem(models.Model):
         else:
             return f"{self.order.session_key} - {self.product.name}"
         
-class Order_details(models.Model):
+class OrderDetails(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
