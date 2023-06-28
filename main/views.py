@@ -50,7 +50,6 @@ class ItemPage(View):
         if not created:
             item.quantity += 1
             item.save()
-
         return redirect('home_page')
 
     def get_cart(self):
@@ -61,7 +60,6 @@ class ItemPage(View):
             cart, created = Cart.objects.get_or_create(owner=None, session_key=session_key)
         return cart
 
-    
     def get_session(self):
         session_key = self.request.session.session_key
         if not session_key:
