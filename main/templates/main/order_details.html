@@ -15,14 +15,14 @@
             <h2>Input your personal data</h2>
         </div>
         <hr>
-        <form action="">
+        <form action="" method="POST">
             {% csrf_token %}
             {{order_form}}
-            <button></button>
+            <button class="btn btn-secondary" style="margin-top: 1rem;" type="submit">Confirm your data</button>
         </form>
     </div>
     <div class="right_form">
-        <h2>1</h2>
+        <img src="{% static 'images/order_details_img.jpg' %}" alt="">
     </div>
 </div>
 {% endblock %}

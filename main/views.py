@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import RegisterForm,UserLoginForm,OrderDetailsForm
 
-from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem
+from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem,OrderDetails
 
 class HomePage(View):
     def get(self,request):
@@ -69,7 +69,16 @@ class ItemPage(View):
             self.request.session.save()
             session_key = self.request.session.session_key
         return session_key
-
+    
+    def total_price(self,cart_items):
+        t_price = 0
+        for item in cart_items:
+            if item.quantity > 1:
+                t_price += item.product.price*item.quantity
+            else:
+                t_price += item.product.price
+        return t_price
+    
 class CartPage(ItemPage,View):
     def get(self,request):
         cart = self.get_cart()
@@ -108,7 +117,7 @@ class CartPage(ItemPage,View):
                 order = Order.objects.create(session_key=cart.session_key)
                 self.create_order_items(cart_items,order)
             cart.delete()
-            return redirect('home_page')
+            return redirect('order_details_page')
         else:
             return HttpResponse('Your cart is empty')
 
@@ -116,22 +125,42 @@ class CartPage(ItemPage,View):
         for item in cart_items:
             OrderItem.objects.create(product=item.product,order=order,quantity=item.quantity)
             item.delete()
-
-    def total_price(self,cart_items):
-        t_price = 0
-        for item in cart_items:
-            if item.quantity > 1:
-                t_price += item.product.price*item.quantity
-            else:
-                t_price += item.product.price
-        return t_price
     
-class OrderDetailPage(View):
+class OrderDetailPage(ItemPage,View):
     def get(self,request):
-        form = OrderDetailsForm
+        form = OrderDetailsForm()
         context = {'order_form':form}
         return render(request,'main/order_details.html',context)
     
+    def post(self,request):
+        form = OrderDetailsForm(request.POST)
+        return self.form_validation(form)
+
+    def form_validation(self,form):
+        if form.is_valid():
+            order_details = form.save(commit=False)
+            order = self.get_order()
+            order_details.order = order
+            order_details.total_price = self.total_price(OrderItem.objects.filter(order=order))
+            order_details.save()
+            return redirect('home_page')
+
+    def get_order(self):
+        if self.request.user.is_authenticated:
+            order = Order.objects.get(owner=Profile.objects.get(user=self.request.user))
+        else:
+            order = Order.objects.get(session_key = self.get_session())
+        return order
+
+    # def get_session(self):
+    #     session_key = self.request.session.session_key
+    #     if not session_key:
+    #         self.request.session.save()
+    #         session_key = self.request.session.session_key
+    #     return session_key
+
+
+
 class RegisterPage(View):
     def get(self,request):
         form = RegisterForm()
