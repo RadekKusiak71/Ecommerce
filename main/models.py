@@ -72,6 +72,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    quantity = models.PositiveBigIntegerField(default=1)
 
     def __str__(self):
         if self.order.owner:
@@ -88,6 +89,7 @@ class Order_details(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     status = models.BooleanField(default=False)
     order = models.ForeignKey('Order',on_delete=models.CASCADE,null=True)
+    total_price = models.FloatField(default=0)
 
     def __str__(self):
         if self.status:
