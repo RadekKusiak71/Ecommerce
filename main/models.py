@@ -62,6 +62,7 @@ class CartItem(models.Model):
 class Order(models.Model):
     owner = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
     session_key = models.CharField(max_length=255,null=True)
+    status = models.BooleanField(default=False)
     def __str__(self):
         if self.owner:
             return f'Order for {self.owner.firstname} {self.owner.lastname}'

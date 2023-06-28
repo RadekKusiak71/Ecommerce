@@ -143,13 +143,15 @@ class OrderDetailPage(ItemPage,View):
             order_details.order = order
             order_details.total_price = self.total_price(OrderItem.objects.filter(order=order))
             order_details.save()
+            order.status = True
+            order.save()
             return redirect('home_page')
 
     def get_order(self):
         if self.request.user.is_authenticated:
-            order = Order.objects.get(owner=Profile.objects.get(user=self.request.user))
+            order = Order.objects.get(owner=Profile.objects.get(user=self.request.user),status=False)
         else:
-            order = Order.objects.get(session_key = self.get_session())
+            order = Order.objects.get(session_key = self.get_session(),status=False)
         return order
 
     # def get_session(self):
