@@ -4,6 +4,57 @@ from django.forms import ModelForm,TextInput, EmailInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UsernameField
+from .models import OrderDetails
+
+
+class OrderDetailsForm(ModelForm):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update({
+            'required':'',
+            'name':'first_name',
+            'id':'first_name',
+            'type':'text',
+            'class':'form-control',
+            'placeholder':'First Name'
+        })
+        self.fields['last_name'].widget.attrs.update({
+            'required':'',
+            'name':'last_name',
+            'id':'last_name',
+            'type':'text',
+            'class':'form-control',
+            'placeholder':'Last Name'
+        })
+        self.fields['email'].widget.attrs.update({
+            'required':'',
+            'name':'email',
+            'id':'email',
+            'type':'email',
+            'class':'form-control',
+            'placeholder':'E-Mail'
+        })
+        self.fields['phone'].widget.attrs.update({
+            'required':'',
+            'name':'phone',
+            'id':'phone',
+            'type':'text',
+            'class':'form-control',
+            'placeholder':'Phone Number'
+        })
+        self.fields['address'].widget.attrs.update({
+            'required':'',
+            'name':'address',
+            'id':'address',
+            'type':'text',
+            'class':'form-control',
+            'placeholder':'Address'
+        })
+    class Meta:
+        model = OrderDetails
+        fields = '__all__'
+        exclude = ('order','total_price','created_at','status',)
+
 
 class UserLoginForm(AuthenticationForm):
     def __init__(self,*args,**kwargs):

@@ -7,9 +7,9 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from .forms import RegisterForm,UserLoginForm
+from .forms import RegisterForm,UserLoginForm,OrderDetailsForm
 
-from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem, Order_details
+from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem
 
 class HomePage(View):
     def get(self,request):
@@ -124,7 +124,13 @@ class CartPage(ItemPage,View):
             else:
                 t_price += item.product.price
         return t_price
-
+    
+class OrderDetailPage(View):
+    def get(self,request):
+        form = OrderDetailsForm
+        context = {'order_form':form}
+        return render(request,'main/order_details.html',context)
+    
 class RegisterPage(View):
     def get(self,request):
         form = RegisterForm()
