@@ -7,8 +7,7 @@
 
 {% block content %}
 <div class="status_cart">
-    <div class="status">Your Cart</div>
-    <div class="status">Your Data</div>
+    <div class="status" style="font-weight: bold;">Your Cart</div>
     <div class="status">Order Details</div>
     <div class="status">Confirm Order</div>
 </div>
@@ -22,10 +21,12 @@
         <div class="cart_product_data">
         <h3>{{ item.product.name }}</h3>
         <p>Quantity: {{ item.quantity }}</p>
-        <p>Price: {{ item.product.price }}</p>
+        <p>Price: {{ item.product.price }} $</p>
         </div>
         <div class="cart_item_delete">
         <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="item_id" value="{{ item.id }}">
             <button type="submit">
                 <i class="bi bi-x"></i>
             </button>
@@ -33,6 +34,16 @@
         </div>
     </div>
     {% endfor %}
-    
+    <div class="cart_end_data">
+        <div class="cart_price">
+            <p style="color: white; text-align: left;font-size: 25px;margin-left: 1rem;" >Total price: {{total_price}}$</p>
+        </div>
+        <div class="order_button">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-secondary" button="submit" name="order">Order</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
