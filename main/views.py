@@ -187,7 +187,19 @@ class CategoryPage(ItemPage,View):
                 item.save()
             return redirect('cart_page')
 
-
+class ProfilePage(LoginRequiredMixin,View):
+    def get(self,request):
+        profile = Profile.objects.get(user=request.user)
+        orders_list = []
+        for order in self.get_orders():
+            orders_list.append(OrderDetails.objects.get(order=order))
+        context = {'profile':profile,'orders':orders_list}
+        return render(request,'main/profile_page.html',context)
+    
+    def get_orders(self):
+        orders = Order.objects.filter(owner=Profile.objects.get(user=self.request.user),status=True)
+        return orders
+    
 class RegisterPage(View):
     def get(self,request):
         form = RegisterForm()

@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile_container">
+    <div class="profile_title">
+        <h1>Hello, {{ profile.firstname }} {{ profile.lastname }}</h1>
+    </div>
+    <div class="profile_data">
+        <h2>Your Account Information:</h2>
+        <div class="profile_data_1">
+            <div class="p_data">
+                <p>First Name: {{ profile.firstname }}</p>
+            </div>
+            <div class="p_data">
+                <p>Last Name: {{ profile.lastname }}</p>
+            </div>
+        </div>
+        <div class="profile_data_1">
+            <div class="p_data">
+                <p>Username: {{ profile.user.username }}</p>
+            </div>
+            <div class="p_data">
+                <p>Email: {{ profile.email }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="your_orders">
+        <h2>Your Orders:</h2>
+        {% if orders %}
+        {% for order in orders %}
+        <div class="order">
+            <h4>Status: {% if order.status %}Ready to Ship{% else %}Processing{% endif %}</h4>
+            <p>Order ID: {{ order.id }}</p>
+            <p>Created at: {{ order.created_at }}</p>
+            {% if not order.status %}
+            <form method="post" action="">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Cancel Order</button>
+            </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No orders found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
