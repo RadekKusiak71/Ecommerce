@@ -145,22 +145,47 @@ class OrderDetailPage(ItemPage,View):
             order_details.save()
             order.status = True
             order.save()
+            self.updating_quantity(order)
             return redirect('home_page')
+        
+    def updating_quantity(self,order):
+        for item in OrderItem.objects.filter(order=order):
+            quantity = item.quantity
+            product = Product.objects.get(id=item.product.id)
+            product.quantity -= quantity
+            product.save()
 
     def get_order(self):
         if self.request.user.is_authenticated:
-            order = Order.objects.get(owner=Profile.objects.get(user=self.request.user),status=False)
+            try:
+                order = Order.objects.get(owner=Profile.objects.get(user=self.request.user),status=False)
+            except Order.MultipleObjectsReturned:
+                order = Order.objects.filter(owner=Profile.objects.get(user=self.request.user),status=False).order_by('created_at').first()
         else:
-            order = Order.objects.get(session_key = self.get_session(),status=False)
+            try:
+                order = Order.objects.get(session_key = self.get_session(),status=False)
+            except Order.MultipleObjectsReturned:
+                order = Order.objects.filter(session_key = self.get_session(),status=False).order_by('created_at').first()
         return order
 
-    # def get_session(self):
-    #     session_key = self.request.session.session_key
-    #     if not session_key:
-    #         self.request.session.save()
-    #         session_key = self.request.session.session_key
-    #     return session_key
-
+class CategoryPage(ItemPage,View):
+    def get(self,request,category_id):
+        category = Category.objects.get(id=category_id)
+        products = Product.objects.filter(
+            category=category)
+        context = {'products':products,'category':category}
+        return render(request,'main/category.html',context)
+    
+    def post(self,request,category_id):
+        if request.method == 'POST':
+            item_id = request.POST.get('item_id')
+            product = Product.objects.get(id=item_id)
+            cart = self.get_cart()
+            item, created = CartItem.objects.get_or_create(product=product, cart=cart)
+            if not created:
+                item.quantity += 1
+                item.save()
+            return redirect('cart_page')
 
 
 class RegisterPage(View):
