@@ -56,6 +56,7 @@ class CartItem(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart,on_delete=models.CASCADE)
     quantity = models.PositiveBigIntegerField(default=1)
+
     def __str__(self):
         return f'Item {self.product.name} - {self.quantity} for cart {self.cart.id}'
     
@@ -63,6 +64,8 @@ class Order(models.Model):
     owner = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
     session_key = models.CharField(max_length=255,null=True)
     status = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+
     def __str__(self):
         if self.owner:
             return f'Order for {self.owner.firstname} {self.owner.lastname}'

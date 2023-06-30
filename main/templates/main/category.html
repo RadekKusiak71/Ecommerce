@@ -1,2 +1,34 @@
 {% extends 'main/base.html' %}
-{% block title %} {% endblock %}
+{% load static %}
+{% block title %}Category page {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/category.css' %}">{% endblock %}
+
+{% block content %}
+    <div class="category_cont" style="margin-top: 0.5rem;">
+        <h1 style="color: white;text-align: center;">{{category.name}}s</h1>
+        <hr>
+        <div class="category_products">
+            {%for product in products%}
+            <div class="product">
+                <div class="product_image">
+                    <img src="{{product.image.url}}" alt="">
+                </div>
+                <div class="product_add">
+                    <p>Product: {{product.name}}</p>
+                    <p>Price: {{product.price}}$</p>
+                    <p>Quantity: {{product.quantity}}</p>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {% if product.quantity != 0 %}
+                        <button class="btn btn-secondary"  name="item_id" value="{{product.id}}" > Add to cart</button>
+                        {% else %}
+                        <button class="btn btn-secondary" disabled>Not available</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

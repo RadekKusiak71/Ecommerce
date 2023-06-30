@@ -1,0 +1,47 @@
+.cont{
+    min-height: 100vh;
+    height: fit-content;
+    color: white;
+}
+/* static/css/profile.css */
+
+.profile_container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #292b2c;
+  }
+  
+  .profile_title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile_data {
+    margin-bottom: 40px;
+  }
+  
+  .profile_data_1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .p_data {
+    width: 45%;
+  }
+  
+  .your_orders {
+    margin-top: 30px;
+  }
+  
+  .order {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .order h4 {
+    color: #337ab7;
+  }
+  
