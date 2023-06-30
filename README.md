@@ -9,7 +9,7 @@ Ecommerce site project
 ##Instalation:
   1. Clone repository from git
   2. Create virtualenv
-         ```
+    ```
     virtualenv venv
     ```
   4. Activate virtualenv and run command:
