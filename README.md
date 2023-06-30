@@ -1,12 +1,12 @@
 # Ecommerce
 Ecommerce site project
-##Technologies used:
+## Technologies used:
   - Django
   - Django Rest Framework
   - Html
   - Css
   - Bootstrap
-##Instalation:
+## Instalation:
   1. Clone repository from git
   2. Create virtualenv
     ```
