@@ -11,6 +11,7 @@ from .forms import RegisterForm,UserLoginForm,OrderDetailsForm
 
 from .models import Profile, Category, Product, Cart , CartItem, Order, OrderItem,OrderDetails
 
+#main site section
 class HomePage(View):
     def get(self,request):
         category = Category.objects.get(name='Phone')
@@ -200,6 +201,8 @@ class ProfilePage(LoginRequiredMixin,View):
         orders = Order.objects.filter(owner=Profile.objects.get(user=self.request.user),status=True)
         return orders
     
+#authentication views section
+
 class RegisterPage(View):
     def get(self,request):
         form = RegisterForm()
@@ -251,3 +254,54 @@ class LogoutRequest(LoginRequiredMixin,View):
     def get(self,request):
         logout(request)
         return redirect('home_page')
+    
+
+#REST API
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import ProductSerializer, CategorySerializer,OrderSerializer,ProfileSerializer,UserSerializer
+from django.contrib.auth.models import User
+
+@api_view(['GET'])
+def getProducts(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(products,many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getProduct(request,category_id):
+    category = Category.objects.get(id=category_id)
+    products = Product.objects.filter(category=category)
+    serializer = ProductSerializer(products,many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def addProduct(request):
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getCategory(request):
+    categories = Category.objects.all()
+    serializer = CategorySerializer(categories,many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getOrders(request):
+    orders = Order.objects.all()
+    serializer = OrderSerializer(orders,many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getProfiles(request):
+    profiles = Profile.objects.all()
+    serializer = ProfileSerializer(profiles,many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getUsers(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users,many=True)
+    return Response(serializer.data)

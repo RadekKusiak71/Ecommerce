@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -14,4 +14,21 @@ urlpatterns = [
     path('register/',views.RegisterPage.as_view(),name='register_page'),
     path('login/',views.LoginPage.as_view(),name='login_page'),
     path('logout/',views.LogoutRequest.as_view(),name='logout_request'),
+
+    # REST API
+
+    #GET APIS
+    path('api/products',views.getProducts),
+    path('api/products/<int:category_id>',views.getProduct),
+    path('api/category',views.getCategory),
+    path('api/profiles',views.getProfiles),
+    path('api/users',views.getUsers),
+    path('api/order',views.getOrders),
+
+    #POST APIS
+    path('api/productadd',views.addProduct),
+    
+
+    #
+
     ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
