@@ -9,10 +9,10 @@ Ecommerce site project
 ##Instalation:
   1. Clone repository from git
   2. Create virtualenv
-    ```
+         ```
     virtualenv venv
     ```
-  3. Activate virtualenv and run command:
+  4. Activate virtualenv and run command:
      ```
      pip install -r requirements.txt
      ```
