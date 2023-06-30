@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/profiles',views.getProfiles),
     path('api/users',views.getUsers),
     path('api/order',views.getOrders),
+    path('api/order/<int:order_id>',views.getOrderItems),
 
     #POST APIS
     path('api/productadd',views.addProduct),

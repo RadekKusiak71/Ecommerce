@@ -259,7 +259,7 @@ class LogoutRequest(LoginRequiredMixin,View):
 #REST API
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import ProductSerializer, CategorySerializer,OrderSerializer,ProfileSerializer,UserSerializer
+from .serializers import ProductSerializer, CategorySerializer,OrderSerializer,ProfileSerializer,UserSerializer,OrderItemsSerializer
 from django.contrib.auth.models import User
 
 @api_view(['GET'])
@@ -304,4 +304,11 @@ def getProfiles(request):
 def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users,many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getOrderItems(request,order_id):
+    order = Order.objects.get(id=order_id)
+    items = OrderItem.objects.filter(order=order)
+    serializer = OrderItemsSerializer(items,many=True)
     return Response(serializer.data)
