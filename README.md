@@ -2,7 +2,6 @@
 Ecommerce site project
 ## Technologies used:
   - Django
-  - Django Rest Framework
   - Html
   - Css
   - Bootstrap
